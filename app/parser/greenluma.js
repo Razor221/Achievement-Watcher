@@ -9,7 +9,7 @@ module.exports.scan = async() => {
 
     const keys = {
       glr: await regedit.promises.RegListAllSubkeys("HKCU","SOFTWARE/GLR/AppID"),
-      gl2020: await regedit.promises.RegListAllSubkeys("HKCU","SOFTWARE/GL2020/AppID")
+      gl2020: await regedit.promises.RegListAllSubkeys("HKCU","SOFTWARE/GL2024/AppID")
     };
 
     if(keys.glr){
@@ -34,14 +34,14 @@ module.exports.scan = async() => {
       for (let key of keys.gl2020) 
       {
         try {
-          let glr_ach_enable = parseInt(await regedit.promises.RegQueryIntegerValue("HKCU",`SOFTWARE/GL2020/AppID/${key}`,"SkipStatsAndAchievements"));
+          let glr_ach_enable = parseInt(await regedit.promises.RegQueryIntegerValue("HKCU",`SOFTWARE/GL2024/AppID/${key}`,"SkipStatsAndAchievements"));
           if(glr_ach_enable === 0) {
                data.push({appid: key,
                           source: "GreenLuma 2020",
                            data: {
                               type: "reg",
                               root: "HKCU",
-                              path: `SOFTWARE/GL2020/AppID/${key}/Achievements`}
+                              path: `SOFTWARE/GL2024/AppID/${key}/Achievements`}
                         });
                }
          }catch{}
